@@ -10,7 +10,7 @@ require("dotenv").config();
 // Allow specific origin
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://chitchat-01mb.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"], // Adjust as needed
     credentials: true, // If you're using cookies for authentication
   })
@@ -41,7 +41,7 @@ const server = app.listen(process.env.PORT, () =>
 );
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://chitchat-01mb.onrender.com"],
     credentials: true,
   },
 });
