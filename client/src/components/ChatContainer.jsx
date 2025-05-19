@@ -78,10 +78,7 @@ export default function ChatContainer({ currentChat, socket }) {
       <div className="chat-header">
         <div className="user-details">
           <div className="avatar">
-            <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-              alt=""
-            />
+            <img src={currentChat.avatarImage} alt="" />
           </div>
           <div className="username">
             <h3>{currentChat.username}</h3>
@@ -130,7 +127,10 @@ const Container = styled.div`
       gap: 1rem;
       .avatar {
         img {
-          height: 3rem;
+          height: 2.5rem;
+          width: 2.5rem;
+          border-radius: 50%;
+          object-fit: cover;
         }
       }
       .username {

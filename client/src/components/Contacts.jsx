@@ -131,8 +131,10 @@ const Container = styled.div`
     gap: 2rem;
     .avatar {
       img {
-        height: 4rem;
-        max-inline-size: 100%;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
       }
     }
     .username {
