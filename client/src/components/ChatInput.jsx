@@ -8,14 +8,17 @@ export default function ChatInput({ handleSendMsg }) {
   const [msg, setMsg] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
+  // Toggles emoji picker visibility
   const handleEmojiPickerhideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
+  // Appends selected emoji to the message input
   const handleEmojiClick = (emojiObject) => {
     setMsg((prevMsg) => prevMsg + emojiObject.emoji);
   };
 
+  // Handles sending message
   const sendChat = (event) => {
     event.preventDefault();
     if (msg.length > 0) {
@@ -36,14 +39,14 @@ export default function ChatInput({ handleSendMsg }) {
           )}
         </div>
       </div>
-      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+      <form className="input-container" onSubmit={sendChat}>
         <input
           type="text"
           placeholder="Type your message here"
           onChange={(e) => setMsg(e.target.value)}
           value={msg}
         />
-        <button type="submit" onClick={handleEmojiPickerhideShow}>
+        <button type="submit">
           <IoMdSend />
         </button>
       </form>
