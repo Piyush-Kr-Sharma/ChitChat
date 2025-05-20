@@ -110,6 +110,9 @@ const Container = styled.div`
       .avatar {
         img {
           height: 3rem;
+          width: 3rem;
+          border-radius: 50%;
+          object-fit: cover;
         }
       }
       .username {
