@@ -29,22 +29,19 @@ export default function SetAvatar() {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("Image size should be less than 1MB", toastOptions);
-      return;
-    }
+    setSelectedImage(file);
 
+    // Show preview
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreviewImage(reader.result);
-      setSelectedImage(reader.result); // base64 image
     };
     reader.readAsDataURL(file);
   };
 
-  const setProfilePicture = async () => {
+  const handleSubmit = async () => {
     if (!selectedImage) {
-      toast.error("Please upload an image", toastOptions);
+      toast.error("Please select an image", toastOptions);
       return;
     }
 
@@ -52,20 +49,28 @@ export default function SetAvatar() {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
 
-    const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
-      image: selectedImage,
-    });
+    const formData = new FormData();
+    formData.append("avatar", selectedImage);
 
-    if (data.isSet) {
-      user.isAvatarImageSet = true;
-      user.avatarImage = data.image;
-      localStorage.setItem(
-        process.env.REACT_APP_LOCALHOST_KEY,
-        JSON.stringify(user)
+    try {
+      const { data } = await axios.post(
+        `${setAvatarRoute}/${user._id}`,
+        formData
       );
-      navigate("/");
-    } else {
-      toast.error("Error setting avatar. Please try again.", toastOptions);
+
+      if (data.isSet) {
+        user.isAvatarImageSet = true;
+        user.avatarImage = data.image;
+        localStorage.setItem(
+          process.env.REACT_APP_LOCALHOST_KEY,
+          JSON.stringify(user)
+        );
+        navigate("/");
+      } else {
+        toast.error("Failed to set avatar", toastOptions);
+      }
+    } catch (err) {
+      toast.error("Upload failed", toastOptions);
     }
   };
 
@@ -80,7 +85,7 @@ export default function SetAvatar() {
           <img src={previewImage} alt="Avatar Preview" />
         </div>
       )}
-      <button onClick={setProfilePicture} className="submit-btn">
+      <button onClick={handleSubmit} className="submit-btn">
         Set as Profile Picture
       </button>
       <ToastContainer />
