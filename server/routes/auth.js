@@ -5,6 +5,7 @@ const {
   setAvatar,
   logOut,
 } = require("../controllers/userController");
+const upload = require("../middleware/multer");
 
 const router = require("express").Router();
 
