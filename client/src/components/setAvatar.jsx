@@ -29,7 +29,7 @@ export default function SetAvatar() {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (file.size > 1 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       toast.error("Image size should be less than 1MB", toastOptions);
       return;
     }

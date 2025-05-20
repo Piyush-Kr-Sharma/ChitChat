@@ -57,6 +57,17 @@ module.exports.setAvatar = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const avatarImage = req.body.image;
+
+    // validate base64 size (~13MB max)
+    const sizeInBytes = Buffer.byteLength(avatarImage, "utf8");
+    const maxSize = 13 * 1024 * 1024; // ~13MB for 10MB image in base64
+
+    if (sizeInBytes > maxSize) {
+      return res
+        .status(400)
+        .json({ msg: "Image too large. Max allowed is 10MB." });
+    }
+
     const userData = await User.findByIdAndUpdate(
       userId,
       {
@@ -65,6 +76,7 @@ module.exports.setAvatar = async (req, res, next) => {
       },
       { new: true }
     );
+
     return res.json({
       isSet: userData.isAvatarImageSet,
       image: userData.avatarImage,
