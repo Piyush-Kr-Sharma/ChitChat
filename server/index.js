@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://chit-chat-realtime-chat-app.vercel.app/",
+      "https://chit-chat-six-gamma.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"], // Adjust as needed
     credentials: true, // If you're using cookies for authentication
@@ -46,7 +46,7 @@ const io = socket(server, {
   cors: {
     origin: [
       "http://localhost:3000",
-      "https://chit-chat-realtime-chat-app.vercel.app/",
+      "https://chit-chat-six-gamma.vercel.app",
     ],
     credentials: true,
   },
