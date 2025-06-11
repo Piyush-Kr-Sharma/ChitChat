@@ -21,6 +21,7 @@ export default function ChatInput({ handleSendMsg }) {
   // Handles sending message
   const sendChat = (event) => {
     event.preventDefault();
+    setShowEmojiPicker(!showEmojiPicker);
     if (msg.length > 0) {
       handleSendMsg(msg);
       setMsg("");
