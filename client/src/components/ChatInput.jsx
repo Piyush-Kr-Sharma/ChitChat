@@ -20,13 +20,13 @@ export default function ChatInput({ handleSendMsg }) {
 
   // Handles sending message
   const sendChat = (event) => {
-    event.preventDefault();
-    setShowEmojiPicker(!showEmojiPicker);
-    if (msg.length > 0) {
-      handleSendMsg(msg);
-      setMsg("");
-    }
-  };
+  event.preventDefault();
+  if (msg.length > 0) {
+    handleSendMsg(msg);
+    setMsg("");
+    setShowEmojiPicker(false); // Always close emoji picker after sending
+  }
+};
 
   return (
     <Container>
